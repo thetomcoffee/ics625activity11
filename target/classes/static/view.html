@@ -5,11 +5,77 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+        <style>
+            body { margin: 10px; padding: 10px; }
+        </style>
+        
         <title>View your friends</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>View your frineds</div>
+        <header>
+            <h1>View your friends</h1>
+        </header>
+        <div>
+            <table summary="your friends" id="data">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>Email</th><th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+            
+            <script type="">
+            $.ajax({
+                url: '/friends',
+                dataType: 'json',
+                success : function(data) {
+                    if (data.length > 0) {
+                        let $tableBody = $('tbody#table-body');
+                        
+                        for(let i = 0; i < data.length; i++) {
+                            let $newRow = '<tr><td>' + data[i].id 
+                                + '</td><td>' 
+                                + data[i].name 
+                                + '</td><td>' 
+                                + data[i].email
+                                + '</td><td>'
+                                + data[i].phoneNumber
+                                + '</td></tr>';
+                            $tableBody.append($newRow);
+                        }
+                        //get headings, keys in first object in data:
+                        var friend0 = data[0];
+                        console.log(friend0);
+                        console.log(friend0.id)
+                        console.log(friend0.name);
+                        console.log(friend0.email);
+                        console.log(friend0.phoneNumber);
+                    }
+                    console.log(data);
+                   
+                    
+                    
+                    
+                }
+            });
+        </script>
+        </div>
     </body>
 </html>
