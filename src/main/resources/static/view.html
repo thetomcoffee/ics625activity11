@@ -32,7 +32,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <h1>View your friends</h1>
         </header>
         <div>
-            <table summary="your friends" id="data">
+            <table summary="your friends" id="data" class="table">
                 <thead>
                     <tr>
                         <th>ID</th><th>Name</th><th>Email</th><th>Phone Number</th>
@@ -41,14 +41,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <tbody id="table-body"></tbody>
             </table>
             
-            <script type="">
+            <form id="get-one" class="form">
+                <label for="idInput">Friend ID:</label>
+                <input type="text" name="idInput" id="idInput"/>
+                <button id="getOneButton" onclick="getOne()" type="button" class="btn btn-primary">Display Friend</button>
+            </form>
+            
+            <div id="one-friend"></div>
+            
+        <script type="">
             $.ajax({
                 url: '/friends',
                 dataType: 'json',
                 success : function(data) {
                     if (data.length > 0) {
                         let $tableBody = $('tbody#table-body');
-                        
+
                         for(let i = 0; i < data.length; i++) {
                             let $newRow = '<tr><td>' + data[i].id 
                                 + '</td><td>' 
@@ -63,6 +71,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     }
                 }
             });
+            
+            function getOne() {
+                let $input = $('input#idInput');
+                $.ajax({
+                url: '/friends/' + $input.val(),
+                dataType: 'json',
+                success : function(data) {
+                    
+                    console.log('data is ' + data);
+                    console.log('data.length: ' + data.length);
+                    
+                    
+                    if (data.length > 0) {
+                        
+                        let $friend = data[0];
+                        console.log('friend is: ' + $friend);
+                        
+                        let $newElement = '<p>ID: ' 
+                                + $friend.id 
+                                + ', Name: '
+                                + $friend.name 
+                                + ', Email: ' 
+                                + $friend.email
+                                + ', Phone: '
+                                + $friend.phoneNumber
+                                + '</p>'
+                        console.log($newElement);
+                        $('div#one-friend').append($newElement);
+                    }
+                }
+            });
+            }
         </script>
         </div>
     </body>
