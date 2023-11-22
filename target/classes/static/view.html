@@ -73,34 +73,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             });
             
             function getOne() {
-                console.log('getOne() called');
                 let $input = $('input#idInput');
-                console.log($input.val());
                 $.ajax({
                 url: '/friends/' + $input.val(),
                 dataType: 'json',
                 success : function(data) {
                     
-                    console.log('data is ' + data);
-                    console.log('data.length: ' + data.length);
-                    
-                    if (data.length > 0) {
-                        
-                        let $friend = data[0];
-                        console.log('friend is: ' + $friend);
-                        
+                    if(data.id && data.name && data.email && data.phoneNumber) {
                         let $newElement = '<p>ID: ' 
-                                + $friend.id 
+                                + data.id 
                                 + ', Name: '
-                                + $friend.name 
+                                + data.name 
                                 + ', Email: ' 
-                                + $friend.email
+                                + data.email
                                 + ', Phone: '
-                                + $friend.phoneNumber
+                                + data.phoneNumber
                                 + '</p>'
                         console.log($newElement);
+                        $('div#one-friend').empty();
                         $('div#one-friend').append($newElement);
                     }
+                    
+                }, 
+                error : function(xhr, ajaxOptions, thrownError) {
+                    let $newElement = '<p>' + xhr.status + ' ' + xhr.responseText + '</p>';
+                    $('div#one-friend').empty();
+                    $('div#one-friend').append($newElement);
                 }
             });
             }
