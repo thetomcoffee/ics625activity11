@@ -25,6 +25,7 @@
         <header>
             <h1>View your friends</h1>
         </header>
+        
         <div>
             <table summary="your friends" id="data" class="table">
                 <thead>
@@ -43,7 +44,7 @@
             
             <div id="one-friend"></div>
             
-        <script type="">
+            <script>
             $.ajax({
                 url: '/friends',
                 dataType: 'json',
@@ -101,34 +102,6 @@
         
         <div id="put-footer-here"></div>
         
-        <script>
-            $( document ).ready(function() {
-                $.ajax({
-                url: 'nav.html',
-                dataType: 'html',
-                success : function(data) {
-                    let $newElement = data;
-                    $('div#put-nav-here').empty();
-                    $('div#put-nav-here').append($newElement);
-                }, 
-                error : function(xhr, ajaxOptions, thrownError) {
-                    console.error('Error: ' + xhr.status + ' ' + xhr.responseText);
-                }
-                });
-                
-                $.ajax({
-                url: 'footer.html',
-                dataType: 'html',
-                success : function(data) {
-                    let $newElement = data;
-                    $('div#put-footer-here').empty();
-                    $('div#put-footer-here').append($newElement);
-                }, 
-                error : function(xhr, ajaxOptions, thrownError) {
-                    console.error('Error: ' + xhr.status + ' ' + xhr.responseText);
-                }
-                });
-            });
-        </script>
+        <script src="utilities.js"></script>
     </body>
 </html>

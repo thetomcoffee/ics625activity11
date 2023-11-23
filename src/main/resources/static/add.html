@@ -20,6 +20,61 @@
         <title>Add a friend</title>
     </head>
     <body>
-        <div>Add a friend</div>
+        <div id="put-nav-here"></div>
+        
+        <header>
+            <h1>Add Friends</h1>
+        </header>
+        
+        <form id="get-one" class="form">
+            <label for="nameInput">Friend Name:</label>
+            <input type="text" name="nameInput" id="nameInput"/>
+            <br />
+            <label for="phoneInput">Friend Phone:</label>
+            <input type="text" name="phoneInput" id="phoneInput"/>
+            <br />
+            <label for="emailInput">Friend Email:</label>
+            <input type="text" name="emailInput" id="emailInput"/>
+            <br />
+            <button id="addFriendButton" onclick="addFriend()" type="button" class="btn btn-primary">Add Friend</button>
+        </form>
+        
+        <div id="response-message"></div>
+        
+        <script>
+            function addFriend() {
+                let $name = $('input#nameInput').val();
+                let $phone = $('input#phoneInput').val();
+                let $email = $('input#emailInput').val();
+                let $data = '{ "name": "' + $name + '", "phoneNumber": "' + $phone + '", "email": "' + $email + '"}';
+                console.log($data);
+                
+                $.ajax({
+                    type: 'POST', 
+                    url: '/friends', 
+                    data: $data, 
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8', 
+                    success: function(data) {
+
+                        console.log(data);
+                        let $newElement = '<p>Response is, id: ' + data.id + ', name: ' + data.name + ', phoneNumber: ' + data.phoneNumber + 'email: ' + data.email +'</p>';
+                        console.log($newElement);
+                        $('div#response-message').empty();
+                        $('div#response-message').append($newElement);  
+                            
+                    }, 
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        let $newElement = '<p>' + xhr.status + ' ' + xhr.responseText + '</p>';
+                        $('div#response-message').empty();
+                        $('div#response-message').append($newElement);
+                    }
+                });
+            }
+        </script>
+        
+        <div id="put-footer-here"></div>
+        
+        <script src="utilities.js"></script>
     </body>
 </html>
