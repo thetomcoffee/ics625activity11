@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ics625activity11.Ics625activity11ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.556 s - in ics625activity11.Ics625activity11ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.958 s - in ics625activity11.Ics625activity11ApplicationTests

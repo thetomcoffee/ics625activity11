@@ -10,30 +10,19 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css" />
         
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
-        <style>
-            body { margin: 10px; padding: 10px; }
-        </style>
-        
         <title>Manage Friends</title>
         
     </head>
     <body>
-        <nav id="site-nav">
-            <a href="index.html">Home</a>
-            <a href="view.html">View Friends</a>
-            <a href="add.html">Add Friend</a>
-            <a href="update.html">Update Friend</a>
-            <a href="delete.html">Delete Friend</a>
-        </nav>
-        
+       
+        <div id="put-nav-here"></div>
         
         <header>
             <h1>Manage Friends</h1>
@@ -47,9 +36,37 @@
         </div>
         
         
+        <div id="put-footer-here"></div>
         
-        <footer>
-            <p>Copyright 2023 TSI  
-        </footer>
+        <script>
+            $( document ).ready(function() {
+                $.ajax({
+                url: 'nav.html',
+                dataType: 'html',
+                success : function(data) {
+                    let $newElement = data;
+                    $('div#put-nav-here').empty();
+                    $('div#put-nav-here').append($newElement);
+                }, 
+                error : function(xhr, ajaxOptions, thrownError) {
+                    console.error('Error: ' + xhr.status + ' ' + xhr.responseText);
+                }
+                });
+                
+                $.ajax({
+                url: 'footer.html',
+                dataType: 'html',
+                success : function(data) {
+                    let $newElement = data;
+                    $('div#put-footer-here').empty();
+                    $('div#put-footer-here').append($newElement);
+                }, 
+                error : function(xhr, ajaxOptions, thrownError) {
+                    console.error('Error: ' + xhr.status + ' ' + xhr.responseText);
+                }
+                });
+            });
+        </script>
+        
     </body>
 </html>
