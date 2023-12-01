@@ -26,7 +26,72 @@
             <h1>Remove Friends</h1>
         </header>
         
-        
+        <div>
+            <table summary="your friends" id="data" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Name</th><th>Email</th><th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+            
+            <form id="del-one" class="form">
+                <label for="idInput">Friend ID:</label>
+                <input type="text" name="idInput" id="idInput"/>
+                <button id="delOneButton" onclick="delOne()" type="button" class="btn btn-primary">Delete Friend</button>
+            </form>
+            
+            <div id="one-friend"></div>
+            
+            <script>
+            $.ajax({
+                url: '/friends',
+                dataType: 'json',
+                success : function(data) {
+                    if (data.length > 0) {
+                        let $tableBody = $('tbody#table-body');
+
+                        for(let i = 0; i < data.length; i++) {
+                            let $newRow = '<tr><td>' + data[i].id 
+                                + '</td><td>' 
+                                + data[i].name 
+                                + '</td><td>' 
+                                + data[i].email
+                                + '</td><td>'
+                                + data[i].phoneNumber
+                                + '</td></tr>';
+                            $tableBody.append($newRow);
+                        }
+                    }
+                }
+            });
+            
+            function delOne() {
+                let $input = $('input#idInput');
+                $.ajax({
+                    type: 'DELETE', 
+                    url: '/friends/' + $input.val(),
+                    dataType: 'json',
+                    success : function(data) {
+
+                            let $newElement = '<p>ID: ' 
+                                    + data
+                                    + '</p>'
+                            console.log($newElement);
+                            $('div#one-friend').empty();
+                            $('div#one-friend').append($newElement);
+                        
+                    }, 
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        let $newElement = '<p>' + xhr.status + ' ' + xhr.responseText + '</p>';
+                        $('div#one-friend').empty();
+                        $('div#one-friend').append($newElement);
+                    }
+                });
+            }
+        </script>
+        </div>
         
         <div id="put-footer-here"></div>
         
